@@ -12,8 +12,10 @@
 </head>
 <body>
     <?php
+    error_reporting(E_ALL & ~E_NOTICE);
     require_once("header.php");
     require_once("carroussel.php");
+    require_once("review.php");
     require_once("footer.php");
     ?>
 
