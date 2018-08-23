@@ -6,25 +6,35 @@
   </head>
   <body>
     <?php
-    function verifica_registo($user,$pass)
+    function insert_registo($user,$password,$name,$phone,$email)
     {
       // echo $user;
       // echo $pass;
 
       // $insert3= "INSERT INTO formulario (name, email, website,comment,gender) VALUES ('$name2', '$email2', '$website2', '$comment2', '$gender2')";
-      $sql = "SELECT * FROM login WHERE email='$user' AND password='$pass'";
-      
+      $sql ="INSERT INTO login (name, email, password,phone,user) VALUES ('$name', '$email', '$password', '$phone', '$user')";
       // echo $sql;
       try {
         $conn = new PDO("mysql:host=127.0.0.1;dbname=ponchaadvisorlogin", "root", "");
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // echo "Connected successfully";
 
-        $result=$conn->query($sql);
-        $count = $result->rowCount();
+        // $result=$conn->query($sql);
+        // $count = $result->rowCount();
         // print_r($result->fetchColumn());
-        if ($count> 0) {
+
+        // echo "Connected successfully";
+        $stmt = $conn->prepare("INSERT INTO login (name, email, password,phone,user) VALUES (:name, :email,:pass, :phone,:user)");
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':user', $user);
+        $stmt->bindParam(':pass', $password);
+        $stmt->bindParam(':phone', $phone);
+
+        // insert one row
+
+        $result=$stmt->execute();
+        if ($result == 1) {
           return true;
         }else{
           //não está logado
@@ -40,8 +50,8 @@
       }
     }
 
-    $userErr = $passwordErr = $lembrarErr = "";
-    $user = $password =$lembrar= "";
+    $userErr = $passwordErr =$nameErr = $phoneErr =$emailErr= "";
+    $user = $password =$name = $phone =$email="";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (empty($_POST["user"])) {
@@ -57,27 +67,36 @@
       } else {
         $password = $_POST["password"];
       }
-      if (empty($_POST["lembrar"])) {
-        $lembrarErr = "1";
-        setcookie("_CID","0");
+
+      if (empty($_POST["name"])) {
+        $nameErr = "1";
       } else {
-        $lembrar = $_POST["lembrar"];
 
-        if($lembrar=="on"){
-          setcookie("_CID","1");
-          setcookie("pass",$password);
-          setcookie("user",$user);
+        $name =$_POST["name"];
 
-        }
+      }
+      if (empty($_POST["email"])) {
+        $emailErr = "1";
+      } else {
+
+        $email =$_POST["email"];
+
+      }
+      if (empty($_POST["phone"])) {
+        $phoneErr = "1";
+      } else {
+
+        $phone =$_POST["phone"];
+
       }
     }
     $url = 'http://localhost/guiapratico17/index.php';
     // what post fields?
-    if(verifica_registo($user,$password)==true){
-          $fields = array('erro'=>"0",'tipo'=>"1",'user' => $user,'lembrar'=>$lembrar,'contaErrada'=>"0");
+    if(insert_registo($user,$password,$name,$phone,$email)==true){
+          $fields = array('erro'=>"0",'tipo'=>"1",'user' => $user,'lembrar'=>"",'contaErrada'=>"0");
 
     }else{
-          $fields = array('erro'=>"0",'tipo'=>"1",'user' => $user,'lembrar'=>$lembrar,'contaErrada'=>"1");
+          $fields = array('erro'=>"0",'tipo'=>"1",'user' => $user,'lembrar'=>"",'contaErrada'=>"1");
 
     }
     // if($userErr=="1" || $passwordErr=="1"){

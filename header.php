@@ -55,7 +55,33 @@
                 <button type="submit" class="btn btn-primary">Sign in</button>
               </form>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">New around here? Sign up</a>
+              <a class="dropdown-item dropdown-toggle" data-toggle="dropdown">If you dont have account clike here!</a>
+              <div class="dropdown-menu">
+                <form class="px-4 py-3" method="post" action="register.php">
+                <div class="form-group">
+                  <label for="exampleDropdownFormEmail1">Name</label>
+                  <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="telmo ruben" name="name" >
+                </div>
+                  <div class="form-group">
+                    <label for="exampleDropdownFormEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com" name="email" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleDropdownFormEmail1">User name</label>
+                    <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="user_name" name="user" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleDropdownFormPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password" name="password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleDropdownFormPassword1">Phone</label>
+                    <input type="text" class="form-control" id="exampleDropdownFormPassword1" placeholder="920000000" name="phone">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+              </div>
               <a class="dropdown-item" href="#">Forgot password?</a>
             </div>
           </div>
