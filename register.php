@@ -15,7 +15,7 @@
       $sql ="INSERT INTO login (name, email, password,phone,user) VALUES ('$name', '$email', '$password', '$phone', '$user')";
       // echo $sql;
       try {
-        $conn = new PDO("mysql:host=127.0.0.1;dbname=ponchaadvisorlogin", "root", "");
+        $conn = new PDO("mysql:host=127.0.0.1;dbname=bar", "root", "");
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

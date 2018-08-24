@@ -10,7 +10,9 @@
   $url = 'http://localhost/guiapratico17/index.php';
   // unset($_COOKIE["_CID"]);
   $fields = array('erro'=>"0",'tipo'=>"2",'user' => $_COOKIE["user"],'lembrar'=>$_COOKIE["_CID"],'pass'=>$_COOKIE["pass"],'contaErrada'=>"0");
-
+  setcookie("user","");
+  setcookie("id_utilizador","");
+  
   // open connection
   $ch = curl_init();
   // set the url, number of POST vars, POST data

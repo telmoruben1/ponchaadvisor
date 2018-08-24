@@ -8,31 +8,40 @@
     <?php
     function verifica_registo($user,$pass)
     {
-      // echo $user;
-      // echo $pass;
-
-      // $insert3= "INSERT INTO formulario (name, email, website,comment,gender) VALUES ('$name2', '$email2', '$website2', '$comment2', '$gender2')";
-      $sql = "SELECT * FROM login WHERE email='$user' AND password='$pass'";
-      
-      // echo $sql;
       try {
-        $conn = new PDO("mysql:host=127.0.0.1;dbname=ponchaadvisorlogin", "root", "");
+
+        $conn = new PDO("mysql:host=127.0.0.1;dbname=bar", "root", "");
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // echo "Connected successfully";
+        $stmt = $conn->prepare("SELECT * FROM login WHERE email=:email AND password=:pass");
 
-        $result=$conn->query($sql);
-        $count = $result->rowCount();
-        // print_r($result->fetchColumn());
-        if ($count> 0) {
+        $stmt->bindParam(':email', $user);
+        $stmt->bindParam(':pass', $pass);
+        $result=$stmt->execute();
+        // $result2=$stmt->fetchAll();
+        // $row = array_shift($result2);
+        // print_r($row);
+        $result_assoc=$stmt->fetchAll();
+        $id_do_utilizador="";
+        foreach ($result_assoc as $row){
+          foreach ($row as $key => $val){
+            if($key=="id"){
+              $id_do_utilizador=$val;
+            }
+          }
+        }
+        // print_r($id_do_utilizador);
+        if(!empty($result_assoc)){
+          $conn=null;
+          setcookie("user",$user);
+          setcookie("id_utilizador",$id_do_utilizador);
           return true;
         }else{
           //não está logado
+          $conn=null;
           return false;
         }
-        // $conn->query($insert3);
-
-        $conn=null;
       }
       catch(PDOException $e)
       {

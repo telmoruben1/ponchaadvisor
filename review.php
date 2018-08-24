@@ -34,6 +34,15 @@
           <input type="hidden" id="idBar" name="barId" value="1235">
         </div>
         <fieldset class="form-group" >
+          <div class="form-group">
+             <label for="exampleFormControlSelect1">Nome do Bar</label>
+             <select class="form-control" id="exampleFormControlSelect1" name="bar">
+               <option>Venda do belo-2</option>
+               <option>Castrinhos-3</option>
+               <option>Poncha sao vicente-4</option>
+               <option>Poncha da serra de agua-5</option>
+             </select>
+           </div>
           <h5>A sua avaliação geral para este bar</h5>
           <div class="form-check form-check-inline" >
             <input type="radio" class="form-check-input" id="materialInline1" name="estrelas" value="5" checked  >
